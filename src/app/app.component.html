@@ -9,7 +9,7 @@
     <li>
       <div class="form-check">
         <label class="form-check-label">
-          <input class="checkbox" type="checkbox">{{ item.wishText }}
+          <input class="checkbox" type="checkbox" [checked]="item.isComplete" (click)="toggle(item)">{{ item.wishText }}
         </label>
       </div>
     </li>

@@ -12,21 +12,36 @@ import { WishItem } from '../shared/models/wishItem';
 })
 export class AppComponent {
   items: WishItem[] = [
-    // new WishItem('To learn Angular', true),
-    // new WishItem('To learn TypeScript'),
-    // new WishItem('To become a software Engineer'),
+    new WishItem('To learn Angular', true),
+    new WishItem('To learn TypeScript'),
+    new WishItem('To become a software Engineer'),
   ];
   title = 'WishList';
 
-  newWishText='';
-  
+  newWishText = '';
+  listFilter: String = '0';
+
+  visibleItems: WishItem[] = this.items;
+
   addWish() {
     this.items.push(new WishItem(this.newWishText));
-    this.newWishText='';
+    this.newWishText = '';
   }
 
   toggle(item: WishItem) {
     item.isComplete = !item.isComplete;
     console.log(item);
+  }
+
+  toggleFilter(value: any) {
+    if(value === '0') {
+      this.visibleItems = this.items;
+    }
+    else if(value === '1') {
+      this.visibleItems = this.items.filter(item => !item.isComplete);
+    }
+    else {
+      this.visibleItems = this.items.filter(item => item.isComplete);
+    }
   }
 }

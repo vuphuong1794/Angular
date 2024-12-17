@@ -3,6 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { WishItem } from '../shared/models/wishItem';
 
+const filter = [
+  (item: WishItem) => item,
+  (item: WishItem) => !item.isComplete,
+  (item: WishItem) => item.isComplete
+];
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,6 +16,7 @@ import { WishItem } from '../shared/models/wishItem';
   standalone: true,
   imports: [FormsModule, CommonModule],
 })
+
 export class AppComponent {
   items: WishItem[] = [
     new WishItem('To learn Angular', true),
@@ -19,9 +26,11 @@ export class AppComponent {
   title = 'WishList';
 
   newWishText = '';
-  listFilter: String = '0';
+  listFilter: any = '0';
 
-  visibleItems: WishItem[] = this.items;
+  get visibleItems(): WishItem[]{
+    return this.items.filter(filter[this.listFilter]);
+  }
 
   addWish() {
     this.items.push(new WishItem(this.newWishText));
@@ -33,15 +42,4 @@ export class AppComponent {
     console.log(item);
   }
 
-  toggleFilter(value: any) {
-    if(value === '0') {
-      this.visibleItems = this.items;
-    }
-    else if(value === '1') {
-      this.visibleItems = this.items.filter(item => !item.isComplete);
-    }
-    else {
-      this.visibleItems = this.items.filter(item => item.isComplete);
-    }
-  }
 }

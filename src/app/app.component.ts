@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { WishItem } from '../shared/models/wishItem';
+import { WishListComponent } from './wish-list/wish-list.component';
+
 
 const filter = [
   (item: WishItem) => item,
@@ -14,7 +16,7 @@ const filter = [
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, WishListComponent],
 })
 
 export class AppComponent {
@@ -28,18 +30,13 @@ export class AppComponent {
   newWishText = '';
   listFilter: any = '0';
 
-  get visibleItems(): WishItem[]{
+  get visibleItems(): WishItem[] {
     return this.items.filter(filter[this.listFilter]);
   }
 
   addWish() {
     this.items.push(new WishItem(this.newWishText));
     this.newWishText = '';
-  }
-
-  toggle(item: WishItem) {
-    item.isComplete = !item.isComplete;
-    console.log(item);
   }
 
 }

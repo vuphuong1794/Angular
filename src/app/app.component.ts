@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { WishItem } from '../shared/models/wishItem';
 import { WishListComponent } from './wish-list/wish-list.component';
-
+import { AddWishFormComponent } from './add-wish-form/add-wish-form.component';
 
 const filter = [
   (item: WishItem) => item,
@@ -16,7 +16,7 @@ const filter = [
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   standalone: true,
-  imports: [FormsModule, CommonModule, WishListComponent],
+  imports: [FormsModule, CommonModule, WishListComponent, AddWishFormComponent],
 })
 
 export class AppComponent {
@@ -27,16 +27,10 @@ export class AppComponent {
   ];
   title = 'WishList';
 
-  newWishText = '';
   listFilter: any = '0';
 
   get visibleItems(): WishItem[] {
     return this.items.filter(filter[this.listFilter]);
-  }
-
-  addWish() {
-    this.items.push(new WishItem(this.newWishText));
-    this.newWishText = '';
   }
 
 }
